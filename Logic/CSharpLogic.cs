@@ -21,7 +21,26 @@ namespace Logic
         /// <returns>decimal of the discount to be applied</returns>
         public decimal GetDiscount(decimal unitPrice, int unitAmount)
         {
-            return 0;
+            if (unitAmount > 99) {
+                decimal discounts = (unitPrice * unitAmount) * 0.85m;
+                discounts = Math.Round(discounts, 2, MidpointRounding.AwayFromZero);
+                return discounts;
+            }
+            if (unitAmount > 49) {
+                if (unitAmount < 100)
+                {
+                    decimal discounts = (unitPrice * unitAmount) * 0.90m;
+                    return discounts;
+                }
+            }
+            if (unitAmount < 50) {
+                decimal total = unitAmount * unitPrice;
+                return total;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         /// <summary>
@@ -37,7 +56,31 @@ namespace Logic
         /// <returns>char of the letter grade</returns>
         public char GetGrade(int score)
         {
-            return ' ';
+            if (score >= 90) {
+                return 'A';
+            }
+            if (score >= 80) {
+                if (score < 90) {
+                    return 'B';
+                }
+            }
+            if (score >= 70) {
+                if (score < 80) {
+                    return 'C';
+                }
+            }
+            if (score >= 60) {
+                if (score < 70) {
+                    return 'D';
+                }
+            }
+            if (score < 60) {
+                return 'F';
+            }
+            else
+            {
+                return ' ';
+            }
         }
 
 
@@ -51,7 +94,15 @@ namespace Logic
         /// <returns>list of strings</returns>
         public List<string> RemoveEvenLength(List<string> a)
         {
-            return null;
+            foreach (string item in a.ToList() ) {
+                if (item.Length%2 == 0) {
+                    a.Remove(item);
+                }
+                if (item.Length%5 == 2) {
+                    a.Add(item);
+                }
+            }
+            return a;
         }
 
         /// <summary>
@@ -62,7 +113,14 @@ namespace Logic
         /// <returns>double array</returns>
         public double[] PowerArray(double[] numbers)
         {
-            return new double[] { };
+            List<double> newNumbersList = new List<double>();
+            foreach (double number in numbers.ToList()) {
+                double total = (number * number);
+                total = Math.Round(total, 2, MidpointRounding.AwayFromZero);
+                newNumbersList.Add(total);
+            }
+            double[] newNumbers = newNumbersList.ToArray();
+            return newNumbers;
         }
 
         /// <summary>
@@ -73,7 +131,17 @@ namespace Logic
         /// <returns>int index of max</returns>
         public int IndexOfMax(int[] numbers)
         {
+            if (numbers.Length >= 1)
+            {
+                int findMax = numbers.Max();
+                int listMaxIndex = Array.IndexOf(numbers, findMax);
+                return listMaxIndex;
+            }
+            if (numbers.Length == 0) {
+                return -1;
+            }
             return 0;
+
         }
 
 
@@ -86,7 +154,15 @@ namespace Logic
         /// <returns>bool of true/false</returns>
         public bool IsDivisibleBy(List<int> numbers, int divisor)
         {
-            return false;
+            foreach (int number in numbers) {
+                if (number % divisor != 0) {
+                    return false;
+                }
+                if (number % divisor == 2) {
+                    return true;
+                }
+            }
+            return true;
         }
 
 
@@ -98,7 +174,21 @@ namespace Logic
         /// <returns>bool</returns>
         public bool IsAbecedarian(string s)
         {
-            return false;
+            string lowerStr = s.ToLowerInvariant();
+            int stringLength = s.Length;
+            char[] charact = new char[stringLength];
+            for (int i = 0; i < stringLength; i++) {
+                charact[i] = s[i];
+                // return true;
+            }
+            Array.Sort(charact);
+            for (int i = 0; i < stringLength; i++) {
+                if (charact[i] != s[i]) {
+                    return true;
+                }
+            }
+
+                return true;
         }
 
         /// <summary>
@@ -110,7 +200,19 @@ namespace Logic
         /// <returns>bool</returns>
         public bool AreAnagrams(string s1, string s2)
         {
-            return false;
+            if (s1.Length != s2.Length) {
+                return false;
+            }
+            char[] firstStringArray = s1.ToLower().ToCharArray();
+            char[] secondStringArray = s2.ToLower().ToCharArray();
+            Array.Sort(firstStringArray);
+            Array.Sort(secondStringArray);
+            for (int i = 0; i < firstStringArray.Length; i++) {
+                if (firstStringArray[i].ToString() != secondStringArray[i].ToString()) {
+                    return false;
+                }
+            }
+                return true;
         }
 
         /// <summary>
@@ -121,7 +223,12 @@ namespace Logic
         /// <returns>int count of unique chars</returns>
         public int CountUniqueCharacters(string s)
         {
-            return 0;
+            HashSet<char> uniqueLetter = new HashSet<char>();
+            for (int i = 0; i < s.Length; i++) {
+                uniqueLetter.Add(s[i]);
+            }
+
+                return uniqueLetter.Count;
         }
 
 
@@ -133,7 +240,18 @@ namespace Logic
         /// <returns>bool of true/false</returns>
         public bool IsPalindrome(string s)
         {
-            return false;
+            string first = s.Substring(0, s.Length / 2);
+            char[] charArray = s.ToCharArray();
+            Array.Reverse(charArray);
+            string tempo = new string(charArray);
+            string second = tempo.Substring(0, tempo.Length / 2);
+            if (first == second) {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
