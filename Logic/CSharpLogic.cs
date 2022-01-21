@@ -21,19 +21,22 @@ namespace Logic
         /// <returns>decimal of the discount to be applied</returns>
         public decimal GetDiscount(decimal unitPrice, int unitAmount)
         {
-            if (unitAmount > 99) {
+            if (unitAmount > 99)
+            {
                 decimal discounts = (unitPrice * unitAmount) * 0.85m;
                 discounts = Math.Round(discounts, 2, MidpointRounding.AwayFromZero);
                 return discounts;
             }
-            if (unitAmount > 49) {
+            if (unitAmount > 49)
+            {
                 if (unitAmount < 100)
                 {
                     decimal discounts = (unitPrice * unitAmount) * 0.90m;
                     return discounts;
                 }
             }
-            if (unitAmount < 50) {
+            if (unitAmount < 50)
+            {
                 decimal total = unitAmount * unitPrice;
                 return total;
             }
@@ -56,25 +59,33 @@ namespace Logic
         /// <returns>char of the letter grade</returns>
         public char GetGrade(int score)
         {
-            if (score >= 90) {
+            if (score >= 90)
+            {
                 return 'A';
             }
-            if (score >= 80) {
-                if (score < 90) {
+            if (score >= 80)
+            {
+                if (score < 90)
+                {
                     return 'B';
                 }
             }
-            if (score >= 70) {
-                if (score < 80) {
+            if (score >= 70)
+            {
+                if (score < 80)
+                {
                     return 'C';
                 }
             }
-            if (score >= 60) {
-                if (score < 70) {
+            if (score >= 60)
+            {
+                if (score < 70)
+                {
                     return 'D';
                 }
             }
-            if (score < 60) {
+            if (score < 60)
+            {
                 return 'F';
             }
             else
@@ -94,11 +105,14 @@ namespace Logic
         /// <returns>list of strings</returns>
         public List<string> RemoveEvenLength(List<string> a)
         {
-            foreach (string item in a.ToList() ) {
-                if (item.Length%2 == 0) {
+            foreach (string item in a.ToList())
+            {
+                if (item.Length % 2 == 0)
+                {
                     a.Remove(item);
                 }
-                if (item.Length%5 == 2) {
+                if (item.Length % 5 == 2)
+                {
                     a.Add(item);
                 }
             }
@@ -114,7 +128,8 @@ namespace Logic
         public double[] PowerArray(double[] numbers)
         {
             List<double> newNumbersList = new List<double>();
-            foreach (double number in numbers.ToList()) {
+            foreach (double number in numbers.ToList())
+            {
                 double total = (number * number);
                 total = Math.Round(total, 2, MidpointRounding.AwayFromZero);
                 newNumbersList.Add(total);
@@ -137,7 +152,8 @@ namespace Logic
                 int listMaxIndex = Array.IndexOf(numbers, findMax);
                 return listMaxIndex;
             }
-            if (numbers.Length == 0) {
+            if (numbers.Length == 0)
+            {
                 return -1;
             }
             return 0;
@@ -154,11 +170,14 @@ namespace Logic
         /// <returns>bool of true/false</returns>
         public bool IsDivisibleBy(List<int> numbers, int divisor)
         {
-            foreach (int number in numbers) {
-                if (number % divisor != 0) {
+            foreach (int number in numbers)
+            {
+                if (number % divisor != 0)
+                {
                     return false;
                 }
-                if (number % divisor == 2) {
+                if (number % divisor == 2)
+                {
                     return true;
                 }
             }
@@ -174,21 +193,34 @@ namespace Logic
         /// <returns>bool</returns>
         public bool IsAbecedarian(string s)
         {
-            string lowerStr = s.ToLowerInvariant();
-            int stringLength = s.Length;
-            char[] charact = new char[stringLength];
-            for (int i = 0; i < stringLength; i++) {
-                charact[i] = s[i];
-                // return true;
+            string lowerStr = s.ToLower();
+            int stringLength = lowerStr.Length;
+            char[] characters = new char[stringLength];
+            for (int i = 0; i < stringLength; i++)
+            {
+                characters[i] = lowerStr[i];
             }
-            Array.Sort(charact);
-            for (int i = 0; i < stringLength; i++) {
-                if (charact[i] != s[i]) {
-                    return true;
+            Array.Sort(characters);
+            for (int i = 0; i < stringLength; i++)
+            {
+                if (characters[i] != lowerStr[i])
+                {
+                    return false;
                 }
             }
-
+            return true;
+        }
+        public bool checkAbecedarian()
+        {
+            string s = "aabbbcc";
+            if (IsAbecedarian(s))
+            {
                 return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -200,19 +232,22 @@ namespace Logic
         /// <returns>bool</returns>
         public bool AreAnagrams(string s1, string s2)
         {
-            if (s1.Length != s2.Length) {
+            if (s1.Length != s2.Length)
+            {
                 return false;
             }
             char[] firstStringArray = s1.ToLower().ToCharArray();
             char[] secondStringArray = s2.ToLower().ToCharArray();
             Array.Sort(firstStringArray);
             Array.Sort(secondStringArray);
-            for (int i = 0; i < firstStringArray.Length; i++) {
-                if (firstStringArray[i].ToString() != secondStringArray[i].ToString()) {
+            for (int i = 0; i < firstStringArray.Length; i++)
+            {
+                if (firstStringArray[i].ToString() != secondStringArray[i].ToString())
+                {
                     return false;
                 }
             }
-                return true;
+            return true;
         }
 
         /// <summary>
@@ -224,11 +259,12 @@ namespace Logic
         public int CountUniqueCharacters(string s)
         {
             HashSet<char> uniqueLetter = new HashSet<char>();
-            for (int i = 0; i < s.Length; i++) {
+            for (int i = 0; i < s.Length; i++)
+            {
                 uniqueLetter.Add(s[i]);
             }
 
-                return uniqueLetter.Count;
+            return uniqueLetter.Count;
         }
 
 
@@ -245,7 +281,8 @@ namespace Logic
             Array.Reverse(charArray);
             string tempo = new string(charArray);
             string second = tempo.Substring(0, tempo.Length / 2);
-            if (first == second) {
+            if (first == second)
+            {
                 return true;
             }
             else
@@ -264,7 +301,21 @@ namespace Logic
         /// <returns>Dictionary<string, List<int>></returns>
         public Dictionary<string, List<int>> ConcordanceForString(string s)
         {
-            return null;
+        Dictionary<string, List<int>> result = new Dictionary<string, List<int>>();
+
+        for (int index = 0; index < s.Length; index++)
+        {
+            string currentCharacter = s[index].ToString();
+
+            if (!result.ContainsKey(currentCharacter))
+            {
+                result.Add(currentCharacter, new List<int>());
+            }
+
+            result[currentCharacter].Add(index);
+        }
+
+        return result;
         }
     }
 }
